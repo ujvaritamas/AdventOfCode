@@ -33,18 +33,18 @@ class SolutionPart2(SolutionPart1):
         #handle if no digit in s
         if not is_first_digit_found:
             first_digit['index'], first_digit['value'] =\
-                self._find_before_first_digit(s, len(s))
+                self._search_before_first_digit(s, len(s))
 
             last_digit['index'], last_digit['value'] =\
-                self._find_after_last_digit(s, 0)
+                self.__search_after_last_digit(s, 0)
 
         #search spelled digits before and after founded digits
         else:
 
             spelled_first_digit_index, spelled_first_digit = \
-                self._find_before_first_digit(s, first_digit['index'])
+                self._search_before_first_digit(s, first_digit['index'])
             spelled_last_digit_index, spelled_last_digit = \
-                self._find_after_last_digit(s, last_digit['index'])
+                self.__search_after_last_digit(s, last_digit['index'])
 
             if first_digit['index']> spelled_first_digit_index:
                 first_digit['index']= spelled_first_digit_index
@@ -56,7 +56,7 @@ class SolutionPart2(SolutionPart1):
 
         return first_digit['value'] * 10 + last_digit['value']
     
-    def _find_before_first_digit(self, s, index_of_first_digit):
+    def _search_before_first_digit(self, s, index_of_first_digit):
         index = None
         value = -1
         for num in SpelledNumbers.NUMBERS:
@@ -67,8 +67,8 @@ class SolutionPart2(SolutionPart1):
                         value = num['value']
         index = index_of_first_digit if index == None else index
         return (index, value)
-    
-    def _find_after_last_digit(self, s, index_of_last_digit):
+
+    def __search_after_last_digit(self, s, index_of_last_digit):
         index = None
         value = -1
         for num in SpelledNumbers.NUMBERS:

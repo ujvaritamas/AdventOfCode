@@ -32,30 +32,35 @@ class SolutionPart2(SolutionPart1):
 
         #handle if no digit in s
         if not is_first_digit_found:
-            first_digit['index'], first_digit['value'] =\
-                self._search_before_first_digit(s, len(s))
-
-            last_digit['index'], last_digit['value'] =\
-                self.__search_after_last_digit(s, 0)
+            self.__handle_s_without_normal_digit(s, first_digit, last_digit)
 
         #search spelled digits before and after founded digits
         else:
-
-            spelled_first_digit_index, spelled_first_digit = \
-                self._search_before_first_digit(s, first_digit['index'])
-            spelled_last_digit_index, spelled_last_digit = \
-                self.__search_after_last_digit(s, last_digit['index'])
-
-            if first_digit['index']> spelled_first_digit_index:
-                first_digit['index']= spelled_first_digit_index
-                first_digit['value']= spelled_first_digit
-
-            if last_digit['index']< spelled_last_digit_index:
-                last_digit['index']= spelled_last_digit_index
-                last_digit['value']= spelled_last_digit
+            self.__handle_spelled_digits_with_normal_digits(s, first_digit, last_digit)
 
         return first_digit['value'] * 10 + last_digit['value']
     
+    def __handle_s_without_normal_digit(self, s, first_digit, last_digit):
+        first_digit['index'], first_digit['value'] =\
+            self._search_before_first_digit(s, len(s))
+
+        last_digit['index'], last_digit['value'] =\
+            self.__search_after_last_digit(s, 0)
+
+    def __handle_spelled_digits_with_normal_digits(self, s, first_digit, last_digit):
+        spelled_first_digit_index, spelled_first_digit = \
+            self._search_before_first_digit(s, first_digit['index'])
+        spelled_last_digit_index, spelled_last_digit = \
+            self.__search_after_last_digit(s, last_digit['index'])
+
+        if first_digit['index']> spelled_first_digit_index:
+            first_digit['index']= spelled_first_digit_index
+            first_digit['value']= spelled_first_digit
+
+        if last_digit['index']< spelled_last_digit_index:
+            last_digit['index']= spelled_last_digit_index
+            last_digit['value']= spelled_last_digit
+
     def _search_before_first_digit(self, s, index_of_first_digit):
         index = None
         value = -1

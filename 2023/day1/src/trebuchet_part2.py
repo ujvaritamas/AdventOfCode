@@ -65,7 +65,7 @@ class SolutionPart2(SolutionPart1):
         index = None
         value = -1
         for num in SpelledNumbers.NUMBERS:
-            found_at = self.__find_spelled_letters(num['str'], s[:index_of_first_digit].find)
+            found_at = self.__find_spelled_number(num['str'], s[:index_of_first_digit].find)
             if found_at>-1:
                     if index == None or index > found_at:
                         index = found_at
@@ -77,7 +77,7 @@ class SolutionPart2(SolutionPart1):
         index = None
         value = -1
         for num in SpelledNumbers.NUMBERS:
-            found_at = self.__find_spelled_letters(num['str'], s[index_of_last_digit:].rfind)
+            found_at = self.__find_spelled_number(num['str'], s[index_of_last_digit:].rfind)
             if found_at>-1:
                     if index == None or index < found_at:
                         index = found_at
@@ -86,8 +86,8 @@ class SolutionPart2(SolutionPart1):
         return (index, value)
 
     #strategy
-    def __find_spelled_letters(self, substr, strategy):
-        result = strategy(substr)
+    def __find_spelled_number(self, spelled_number, strategy):
+        result = strategy(spelled_number)
 
         return result
 

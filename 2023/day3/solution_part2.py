@@ -4,6 +4,8 @@ class FoundNumber:
         self.end_index = end_index
         self.value = value
         self.line_index = line_index
+        self.stair_position_line = None
+        self.stair_position_index = None
 
     def is_part_number(self, matrix):
         ret = False
@@ -28,28 +30,62 @@ class FoundNumber:
 
         for i in range(start, end+1):
             if is_symbol(prev_line[i]):
+                self.stair_position_index = i
+                self.stair_position_line = self.line_index - 1
                 return True
         return False
 
     def is_symbol_left(self, left_element):
-        return True if is_symbol(left_element) else False
+        if is_symbol(left_element):
+            self.stair_position_index = self.start_index - 1
+            self.stair_position_line = self.line_index
+            return True
+        return False
 
     def is_symbol_right(self, right_element):
-        return True if is_symbol(right_element) else False
+        if is_symbol(right_element):
+            self.stair_position_index = self.end_index + 1
+            self.stair_position_line = self.line_index
+            return True
+        return False
 
     def is_symbol_down(self, next_line):
         start = self.start_index - 1 if (self.start_index-1)>=0 else 0
         end = self.end_index + 1 if (self.end_index+1)<=(len(next_line) - 1) else len(next_line) - 1
-        
+
         for i in range(start, end+1):
             if is_symbol(next_line[i]):
+                self.stair_position_index = i
+                self.stair_position_line = self.line_index + 1
                 return True
         return False
 
 def is_symbol(c):
-    if c=='.':
-        return False
-    return True
+    #count only the * as symbol
+    if c=='*':
+        return True
+    return False
+
+class GearCollector:
+    def __init__(self) -> None:
+        self.gear = {}
+
+    def add_gear(self, id, gear):
+        if id not in self.gear.keys():
+            self.gear[id] = (gear, False)
+        else:
+            self.gear[id] = (self.gear[id][0]*gear, True)
+
+    def sum(self):
+        ret = 0
+        for id in self.gear:
+            if self.gear[id][1]:
+                ret += self.gear[id][0]
+        return ret
+
+    def print(self):
+        print(self.gear)
+
 
 def solve(file_path):
     matrix = []
@@ -96,19 +132,20 @@ def solve(file_path):
     ret = 0
     rr = []
 
-    
+    collector = GearCollector()
     for n in found_numbers:
 
         print(n.__dict__, n.is_part_number(matrix))
 
         if n.is_part_number(matrix):
-            rr.append(n.value)
+            rr.append((n.value, n.stair_position_line, n.stair_position_index))
             ret += n.value
+            id = str(n.stair_position_line) + "_"+str(n.stair_position_index)
+            collector.add_gear(id, n.value)
 
-    print(matrix)
 
-    print(ret)
-
+    collector.print()
+    print(collector.sum())
 
 
 solve('test_input.txt')

@@ -129,17 +129,13 @@ def solve(file_path):
         matrix.append(matrix_row)
         line_count+=1
 
-    ret = 0
-    rr = []
-
     collector = GearCollector()
+
     for n in found_numbers:
 
         print(n.__dict__, n.is_part_number(matrix))
 
         if n.is_part_number(matrix):
-            rr.append((n.value, n.stair_position_line, n.stair_position_index))
-            ret += n.value
             id = str(n.stair_position_line) + "_"+str(n.stair_position_index)
             collector.add_gear(id, n.value)
 

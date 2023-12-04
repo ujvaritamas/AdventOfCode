@@ -171,7 +171,6 @@ int solve(string fileName){
 }
 
 int main(){
-    cout<<"hello"<<endl;
 
     int sum  = solve("test_input.txt");
 

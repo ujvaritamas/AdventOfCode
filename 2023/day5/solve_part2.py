@@ -41,7 +41,7 @@ class Converter:
             #0 - dest range start
             #1 - source range start
             #2 range length
-            if inp>=conv[1] and inp<=(conv[1]+conv[2]):
+            if inp>=conv[1] and inp<(conv[1]+conv[2]):
                 dist_from_start = inp - conv[1]
                 ret = conv[0] + dist_from_start
                 is_converted = True

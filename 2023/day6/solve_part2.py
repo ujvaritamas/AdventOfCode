@@ -8,7 +8,6 @@ def check(time: int, dist_to_check) ->int:
         if distance> dist_to_check:
             ret+=1
 
-        #print(hold_time, time - hold_time, distance)
     return ret
 
 def parse(file_path):
@@ -30,10 +29,7 @@ def parse(file_path):
     print(time)
     print(distance)
     ret = check(time, distance)
-    #ret = 1
-    #for i in range(len(times)):
-    #    ret += check(times[i], distances[i])
-    
+
     print("Final result: ", ret)
 
 def solve(file_path):

@@ -8,7 +8,6 @@ def check(time: int, dist_to_check) ->int:
         if distance> dist_to_check:
             ret+=1
 
-        #print(hold_time, time - hold_time, distance)
     return ret
 
 def parse(file_path):

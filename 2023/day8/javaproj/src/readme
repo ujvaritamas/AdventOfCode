@@ -1,0 +1,12 @@
+build and run:
+mkdir out
+javac -d out ./mypackage/Main.java
+
+javac -d out ./mypackage/*.java
+
+cd out
+java mypackage/Main
+
+
+clean:
+rm -rf out

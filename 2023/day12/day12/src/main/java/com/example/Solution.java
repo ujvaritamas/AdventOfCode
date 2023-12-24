@@ -1,12 +1,12 @@
 package com.example;
 import java.util.ArrayList;
 import java.util.List;
-public class Solution {
+public class Solution implements ISolution{
     private List<Integer> config;
     private String data;
     private List<Integer> unknownCharPosition;
 
-    public Solution(){
+    public Solution (){
         this.config = new ArrayList<>();
         data = new String();
         unknownCharPosition = new ArrayList<>();

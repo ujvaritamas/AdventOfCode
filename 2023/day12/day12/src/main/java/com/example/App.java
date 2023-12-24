@@ -24,8 +24,8 @@ public class App
 
         for(String line: lines){
             System.out.println(line);
-            Solution s = fh.parseLine(line);
-            //s.display();
+            ISolution s = fh.parseLine(line, new Solution());
+            s.display();
             final_result += s.solve();
         }
         System.out.println("final result: " + final_result);

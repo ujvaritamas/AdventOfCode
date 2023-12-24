@@ -11,6 +11,12 @@ import java.nio.charset.StandardCharsets;
 
 
 public class FileHandler {
+
+    ISolution solver;
+
+    public FileHandler(){
+    }
+
     public List<String> readFile(){
 
             List<String> ret = new ArrayList<>();
@@ -29,7 +35,7 @@ public class FileHandler {
             return ret;
     }
 
-    public Solution parseLine(String line){
+    public ISolution parseLine(String line, ISolution solver){
 
         boolean readDigit = false;
         boolean readData = true;
@@ -37,7 +43,6 @@ public class FileHandler {
         String data = "";
         int num = 0;
 
-        Solution s = new Solution();
 
         for(int i= 0; i<line.length(); i++){
         //for(char c:line.toCharArray()){
@@ -45,13 +50,13 @@ public class FileHandler {
             if(c==' '){
                 readData = false;
                 readDigit = true;
-                s.setData(data);
+                solver.setData(data);
                 continue;
             }
 
             if(readData){
                 if(c == '?'){
-                    s.addUnknownCharPosition(i);
+                    solver.addUnknownCharPosition(i);
                 }
                 data += c;
             }
@@ -61,7 +66,7 @@ public class FileHandler {
                     num = num*10+ Character.getNumericValue(c);
                 }
                 else{
-                    s.addConfigNumber(num);
+                    solver.addConfigNumber(num);
                     num = 0;
                 }
             }
@@ -69,8 +74,8 @@ public class FileHandler {
         }
 
         //add the last number
-        s.addConfigNumber(num);
+        solver.addConfigNumber(num);
 
-        return s;
+        return solver;
     }
 }

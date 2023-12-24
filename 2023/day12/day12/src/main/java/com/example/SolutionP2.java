@@ -1,15 +1,23 @@
 package com.example;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-public class Solution implements ISolution{
+
+public class SolutionP2 implements ISolution{
     private List<Integer> config;
     private String data;
     private List<Integer> unknownCharPosition;
 
-    public Solution (){
+    public HashMap<String, String> cache;
+
+
+
+    public SolutionP2(){
         this.config = new ArrayList<>();
         data = new String();
         unknownCharPosition = new ArrayList<>();
+        cache = new HashMap<String, String>();
     }
 
     public void setData(String data){
@@ -50,9 +58,11 @@ public class Solution implements ISolution{
 
         int count = 0;
 
+            System.out.println(Math.pow(2, numOfComb));
         if(numOfComb>0){
-            for(int i = 0; i<Math.pow(2, numOfComb); i++){
-                int[] conf = this.decToBin(i);
+            for(long i = 0; i<Math.pow(2, numOfComb); i++){
+                long[] conf = this.decToBin(i);
+                
 
                 for(int j = 0; j<numOfComb;j++){
                     if(conf[j] == 1){
@@ -76,12 +86,13 @@ public class Solution implements ISolution{
             }
         }
 
+        //System.out.println(cache);
         return count;
     }
 
-    private int[] decToBin(int n){
+    private long[] decToBin(long n){
         int numOfComb = this.unknownCharPosition.size();
-        int[] binaryNum = new int[numOfComb];
+        long[] binaryNum = new long[numOfComb];
         int i = 0;
         while (n > 0)
         {
@@ -96,37 +107,90 @@ public class Solution implements ISolution{
 
     public boolean validate(char[] d){
         int count = 0;
-        List<Integer> current = new ArrayList<>();
+        int checkIndex = 0;
+        String substring_hash = "";
+        String conf_hash = "";
         for(char c: d){
-            if(c == '#'){
-                count++;
+            substring_hash += c;
+
+            if(cache.containsKey(substring_hash+conf_hash)){
+                return false;
             }
-            else{
+
+            if(c == '.'){
                 if(count>0){
-                    current.add(count);
+                    if(checkIndex>this.config.size()-1){
+                        cache.put(substring_hash+conf_hash, "dummy");
+                        return false;
+                    }
+                    conf_hash += this.config.get(checkIndex);
+
+                    if(this.config.get(checkIndex) == count){
+                        checkIndex++;
+                    }
+                    else{
+                        cache.put(substring_hash+conf_hash, "dummy");
+                        return false;
+                    }
                 }
                 count = 0;
+
+            }
+            else{
+                count++;
             }
         }
+
         if(count>0){
-            current.add(count);
-            count = 0;
-        }
+            if(checkIndex>this.config.size()-1){
+                cache.put(substring_hash+conf_hash, "dummy");
+                return false;
+            }
+            conf_hash += this.config.get(checkIndex);
 
-        if(this.config.size() != current.size()){
-            return false;
-        }
-
-        for(int i = 0; i<this.config.size(); i++){
-            if(this.config.get(i) != current.get(i)){
+            if(this.config.get(checkIndex) == count){
+                checkIndex++;
+            }
+            else{
+                cache.put(substring_hash+conf_hash, "dummy");
                 return false;
             }
         }
 
+        if(checkIndex<=this.config.size()-1){
+            cache.put(substring_hash+conf_hash, "dummy");
+            return false;
+        }
+        //System.out.println(d);
+        //System.out.println(this.config);
         return true;
     }
 
+
+    // solution2
     public String manipulateLine(String line){
-        return line;
+        String ret = new String();
+
+        String[] words = line.split(" ");
+
+        for(int i = 0; i<5;i++){
+            ret += words[0];
+            if(i == 4){
+                break;
+            }
+            ret += "?";
+        }
+
+        ret += " ";
+
+        for(int i = 0; i<5;i++){
+            ret += words[1];
+            if(i == 4){
+                break;
+            }
+            ret += ",";
+        }
+
+        return ret;
     }
 }

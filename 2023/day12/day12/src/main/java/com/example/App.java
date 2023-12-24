@@ -9,7 +9,7 @@ import java.util.List;
  * Hello world!
  *
  */
-public class App 
+public class App
 {
 
 
@@ -23,9 +23,10 @@ public class App
         int final_result = 0;
 
         for(String line: lines){
-            System.out.println(line);
-            ISolution s = fh.parseLine(line, new Solution());
-            s.display();
+            //System.out.println(line);
+            //ISolution s = fh.parseLine(line, new Solution());
+            ISolution s = fh.parseLine(line, new SolutionP2());
+            //s.display();
             final_result += s.solve();
         }
         System.out.println("final result: " + final_result);

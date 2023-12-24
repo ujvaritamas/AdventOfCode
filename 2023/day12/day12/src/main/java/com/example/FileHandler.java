@@ -43,6 +43,7 @@ public class FileHandler {
         String data = "";
         int num = 0;
 
+        line = solver.manipulateLine(line);
 
         for(int i= 0; i<line.length(); i++){
         //for(char c:line.toCharArray()){

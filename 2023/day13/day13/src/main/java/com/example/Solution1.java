@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Solution1 {
 
-    private List<Integer> findReflectionVertical(List<String> inputSet){
+    protected List<Integer> findReflectionVertical(List<String> inputSet){
 
         List<Integer>  ret = new ArrayList<>();
 
@@ -41,7 +41,7 @@ public class Solution1 {
         return ret;
     }
 
-    private List<Integer> findReflectionHorizontal(List<String> inputSet){
+    protected List<Integer> findReflectionHorizontal(List<String> inputSet){
 
         List<Integer>  ret = new ArrayList<>();
 
@@ -75,7 +75,7 @@ public class Solution1 {
         return ret;
     }
 
-    private long summarize(List<Integer> indexesHor, List<Integer> indexesVert){
+    protected long summarize(List<Integer> indexesHor, List<Integer> indexesVert){
         long sum = 0;
         if(indexesHor.size() >2){
             System.out.println("Not ok0");

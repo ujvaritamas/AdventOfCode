@@ -13,6 +13,7 @@ public class Main {
         System.out.println("-------------");
         System.out.println(parsedLines);
 
+        /* 
         Solution1 solver = new Solution1();
 
         long finalResult = 0;
@@ -20,8 +21,17 @@ public class Main {
             System.out.println(i);
             finalResult += solver.solve(i);
         }
-
         System.out.println("Final result: " + finalResult);
+        */
+        System.out.println("?????????????");
+        Solution2 solver = new Solution2();
+        for(List<String> i : parsedLines){
+            System.out.println(i);
+            solver.findSmudge(i);
+            System.out.println("-------------");
+        }
+        
+        
         
     }
 }
